@@ -2,6 +2,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+import print_result
+import get_information
+import modify_time
 
 
 def spide_main(key_word):
@@ -15,15 +18,23 @@ def spide_main(key_word):
     driver.find_element_by_id('contentForm:searchBar_searchBar_BUTTON-GO').send_keys(Keys.ENTER)
     time.sleep(3)
 
-    item_name = []
-    item_name = driver.find_elements_by_class_name("commandLink_TITLE-BLUE")
-    item_time = []
-    item_time = driver.find_elements_by_class_name("formOutputText_VALUE-DIV")
+    get_information.information(driver)
 
-    b = len(item_name)
+    next_page = "contentForm:j_idt765:j_idt816_Next_"
+    page_number = 2
 
-    for z in range(0, b):
-        print item_name.__getitem__(z).get_attribute('text')
-        print item_time.__getitem__(1 + 3 * (z - 1)).text
-        # print item_time.__getitem__(z).text
-    print len(item_name)
+    while(driver.find_element_by_id(next_page + str(page_number)).is_enabled()):
+        driver.find_element_by_id(next_page + str(page_number)).send_keys(Keys.ENTER)
+        time.sleep(3)
+
+        get_information.information(driver)
+        page_number = page_number + 1
+    # item_name = []
+    # item_name = driver.find_elements_by_class_name("commandLink_TITLE-BLUE")
+    # item_time = []
+    # item_time = driver.find_elements_by_class_name("formOutputText_VALUE-DIV")
+    #
+    # print_result.print_result(item_name, item_time)
+
+
+

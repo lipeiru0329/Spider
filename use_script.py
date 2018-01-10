@@ -3,5 +3,5 @@ import spider
 
 
 Hello_World.foo()
-spider.spide_main('Python')
+spider.spide_main('ity')
 
